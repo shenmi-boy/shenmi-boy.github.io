@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神秘男孩的秘密基地</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+// =====================================================
+//  ★ 每天只需要改这里！新内容加在列表最上面 ★
+// =====================================================
+
+// 动画视频：先传到B站，把视频网址里 BV 开头的那串字复制过来
+const videos = [
+  { title: "第2集：神秘男孩遇到外星人", date: "2026-10-26", bvid: "BV1xx411c7mD" },
+  { title: "第1集：神秘男孩登场",       date: "2026-10-25", bvid: "BV1xx411c7mD" },
+];
+
+// 小游戏：游戏放在 games 文件夹里，每个游戏一个小文件夹
+const games = [
+  { title: "太空冒险 第2关", date: "2026-10-26", folder: "space-2" },
+  { title: "太空冒险 第1关", date: "2026-10-25", folder: "space-1" },
+];
+
+// =====================================================
+//  下面的代码不用改
+// =====================================================
+</script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+
+<header class="text-center py-10 bg-gradient-to-r from-purple-800 to-indigo-800">
+  <div class="text-6xl mb-2">🕵️</div>
+  <h1 class="text-4xl font-bold">神秘男孩的秘密基地</h1>
+  <p class="mt-2 text-purple-200">每天更新动画和小游戏！</p>
+  <nav class="mt-6 flex justify-center gap-4">
+    <button onclick="show('video')" id="tab-video" class="px-6 py-2 rounded-full font-bold">🎬 动画</button>
+    <button onclick="show('game')" id="tab-game" class="px-6 py-2 rounded-full font-bold">🎮 游戏</button>
+  </nav>
+</header>
+
+<main class="max-w-4xl mx-auto p-6">
+  <section id="player" class="mb-8"></section>
+  <h2 id="list-title" class="text-2xl font-bold mb-4"></h2>
+  <div id="list" class="grid gap-4 sm:grid-cols-2"></div>
+</main>
+
+<footer class="text-center text-gray-500 py-8">© 神秘男孩 · 所有作品均为原创</footer>
+
+<script>
+let mode = 'video';
+
+function show(m) {
+  mode = m;
+  document.getElementById('tab-video').className = 'px-6 py-2 rounded-full font-bold ' + (m==='video' ? 'bg-yellow-400 text-black' : 'bg-white/20');
+  document.getElementById('tab-game').className  = 'px-6 py-2 rounded-full font-bold ' + (m==='game'  ? 'bg-yellow-400 text-black' : 'bg-white/20');
+  const items = m === 'video' ? videos : games;
+  document.getElementById('list-title').textContent = m === 'video' ? '📺 全部剧集' : '🕹️ 全部游戏';
+  document.getElementById('list').innerHTML = items.map((it, i) => `
+    <button onclick="play(${i})" class="text-left bg-gray-800 hover:bg-gray-700 rounded-xl p-4 border border-gray-700">
+      ${i === 0 ? '<span class="bg-red-500 text-xs px-2 py-1 rounded">最新</span>' : ''}
+      <div class="font-bold text-lg mt-2">${it.title}</div>
+      <div class="text-gray-400 text-sm">${it.date}</div>
+    </button>`).join('');
+  if (items.length) play(0);
+}
+
+function play(i) {
+  const p = document.getElementById('player');
+  if (mode === 'video') {
+    const v = videos[i];
+    p.innerHTML = `<h2 class="text-2xl font-bold mb-3">${v.title}</h2>
+      <div class="aspect-video"><iframe class="w-full h-full rounded-xl" allowfullscreen
+      src="https://player.bilibili.com/player.html?bvid=${v.bvid}&autoplay=0"></iframe></div>`;
+  } else {
+    const g = games[i];
+    p.innerHTML = `<h2 class="text-2xl font-bold mb-3">${g.title}</h2>
+      <div class="aspect-video"><iframe class="w-full h-full rounded-xl bg-black" allowfullscreen
+      src="games/${g.folder}/index.html"></iframe></div>
+      <a href="games/${g.folder}/index.html" target="_blank" class="inline-block mt-3 text-yellow-300">↗ 全屏玩</a>`;
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+show('video');
+</script>
+</body>
+</html>
