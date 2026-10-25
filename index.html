@@ -11,15 +11,13 @@
 // =====================================================
 
 // 动画视频：先传到B站，把视频网址里 BV 开头的那串字复制过来
+// 例子：{ title: "第1集：神秘男孩登场", date: "2026-10-26", bvid: "BV开头的那串字" },
 const videos = [
-  { title: "第2集：神秘男孩遇到外星人", date: "2026-10-26", bvid: "BV1xx411c7mD" },
-  { title: "第1集：神秘男孩登场",       date: "2026-10-25", bvid: "BV1xx411c7mD" },
 ];
 
 // 小游戏：游戏放在 games 文件夹里，每个游戏一个小文件夹
 const games = [
-  { title: "太空冒险 第2关", date: "2026-10-26", folder: "space-2" },
-  { title: "太空冒险 第1关", date: "2026-10-25", folder: "space-1" },
+  { title: "🧟 丧尸占领 —— 神秘男孩的第一个游戏，降临！", date: "2026-10-25", folder: "game1" },
 ];
 
 // =====================================================
@@ -48,7 +46,7 @@ const games = [
 <footer class="text-center text-gray-500 py-8">© 神秘男孩 · 所有作品均为原创</footer>
 
 <script>
-let mode = 'video';
+let mode = 'game';
 
 function show(m) {
   mode = m;
@@ -62,7 +60,16 @@ function show(m) {
       <div class="font-bold text-lg mt-2">${it.title}</div>
       <div class="text-gray-400 text-sm">${it.date}</div>
     </button>`).join('');
-  if (items.length) play(0);
+  if (items.length) {
+    play(0);
+  } else {
+    document.getElementById('player').innerHTML = `
+      <div class="text-center bg-gray-800 rounded-xl p-10 border border-gray-700">
+        <div class="text-5xl mb-3">🎬</div>
+        <div class="text-xl font-bold">神秘男孩的动画正在秘密制作中……</div>
+        <div class="text-gray-400 mt-2">敬请期待！</div>
+      </div>`;
+  }
 }
 
 function play(i) {
@@ -82,7 +89,7 @@ function play(i) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-show('video');
+show('game');
 </script>
 </body>
 </html>
