@@ -11,8 +11,8 @@
 // =====================================================
 
 // 动画视频：先传到B站，把视频网址里 BV 开头的那串字复制过来
-// 例子：{ title: "第1集：神秘男孩登场", date: "2026-10-26", bvid: "BV开头的那串字" },
 const videos = [
+  { title: "🦊 第1集：不囤粮的狐狸", date: "2026-10-25", bvid: "BV1xJnS6KEzZ" },
 ];
 
 // 小游戏：游戏放在 games 文件夹里，每个游戏一个小文件夹
@@ -46,7 +46,7 @@ const games = [
 <footer class="text-center text-gray-500 py-8">© 神秘男孩 · 所有作品均为原创</footer>
 
 <script>
-let mode = 'game';
+let mode = 'video';
 
 function show(m) {
   mode = m;
@@ -65,8 +65,8 @@ function show(m) {
   } else {
     document.getElementById('player').innerHTML = `
       <div class="text-center bg-gray-800 rounded-xl p-10 border border-gray-700">
-        <div class="text-5xl mb-3">🎬</div>
-        <div class="text-xl font-bold">神秘男孩的动画正在秘密制作中……</div>
+        <div class="text-5xl mb-3">🚧</div>
+        <div class="text-xl font-bold">神秘男孩正在秘密制作中……</div>
         <div class="text-gray-400 mt-2">敬请期待！</div>
       </div>`;
   }
@@ -78,7 +78,8 @@ function play(i) {
     const v = videos[i];
     p.innerHTML = `<h2 class="text-2xl font-bold mb-3">${v.title}</h2>
       <div class="aspect-video"><iframe class="w-full h-full rounded-xl" allowfullscreen
-      src="https://player.bilibili.com/player.html?bvid=${v.bvid}&autoplay=0"></iframe></div>`;
+      src="https://player.bilibili.com/player.html?bvid=${v.bvid}&autoplay=0&high_quality=1"></iframe></div>
+      <a href="https://www.bilibili.com/video/${v.bvid}/" target="_blank" class="inline-block mt-3 text-yellow-300">↗ 去B站看（可以点赞关注哦）</a>`;
   } else {
     const g = games[i];
     p.innerHTML = `<h2 class="text-2xl font-bold mb-3">${g.title}</h2>
@@ -89,7 +90,7 @@ function play(i) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-show('game');
+show('video');
 </script>
 </body>
 </html>
